@@ -1,19 +1,24 @@
-
-
 <?php
 session_start();
-require 'includes/db.php';
+include 'includes/db.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $username = $_POST['username'];
-    $email = $_POST['email'];
-    $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+    $username = $_POST['reg_username'];
+    $email = $_POST['reg_email'];
+    $password = password_hash($_POST['reg_password'], PASSWORD_DEFAULT);
 
-    $stmt = $pdo->prepare("INSERT INTO users (username, email, password) VALUES (:username, :email, :password)");
-    if ($stmt->execute(['username' => $username, 'email' => $email, 'password' => $password])) {
-        $_SESSION['register_success'] = "Registration successful! Please login.";
-        header('Location: login.php');
-        exit;
+    if ($pdo) {
+        $stmt = $pdo->prepare("INSERT INTO authors (username, email, password) VALUES (:username, :email, :password)");
+        if ($stmt->execute(['username' => $username, 'email' => $email, 'password' => $password])) {
+            $_SESSION['register_success'] = "Registration successful! Please log in.";
+            $_SESSION['show_login_modal'] = true; // Set session flag to show login modal
+            header('Location: blog.php'); // Redirect to the blog page where the login modal will show
+            exit;
+        } else {
+            $error_message = "Registration failed.";
+        }
+    } else {
+        $error_message = "Database connection failed.";
     }
 }
 ?>
@@ -21,24 +26,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <?php include 'includes/header.php'; ?>
 <main>
     <h1>Register</h1>
+    <?php if (isset($error_message)): ?>
+        <p class="error-message"><?= htmlspecialchars($error_message); ?></p>
+    <?php endif; ?>
     <form method="POST">
-        <label>Username:</label>
-        <input type="text" name="username" required>
-        <label>Email:</label>
-        <input type="email" name="email" required>
-        <label>Password:</label>
-        <input type="password" name="password" required>
+        <label for="reg_username">Username:</label>
+        <input type="text" name="reg_username" required>
+        <label for="reg_email">Email:</label>
+        <input type="email" name="reg_email" required>
+        <label for="reg_password">Password:</label>
+        <input type="password" name="reg_password" required>
         <button type="submit">Register</button>
     </form>
 </main>
 
 
-<footer>
-<nav>
-        <a href="index.php">Home</a> 
-        <a href="blogs.php">Blogs</a> 
-        <a href="contact.php">Contact Us</a> 
-        <a href="about.php">About Us</a>
-    </nav>
-    <p>&copy; 2025 MySite. All Rights Reserved.</p>
-    </footer>
+
+
+<?php include 'includes/footer.php'; ?>

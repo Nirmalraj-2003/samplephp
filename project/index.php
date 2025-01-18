@@ -1,10 +1,9 @@
  
  
- 
- <?php include 'includes/header.php'; ?>
+<?php include_once'includes/header.php'; ?>
 <main>
-    <h1>Welcome </h1>
-    <p>Explore our blogs, learn about us, or get in touch!   go to contact and make contact with us.</p>
-    <img src="images/images1.png" alt="Sample Image">
+    <h1>Welcome to My Website</h1>
+    <p>Explore our blogs, learn about us, or get in touch!</p>
+    <img src="images/sample.jpg" alt="Sample Image">
 </main>
 <?php include 'includes/footer.php'; ?>

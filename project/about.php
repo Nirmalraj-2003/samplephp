@@ -1,7 +1,4 @@
-
-
-
-<?php include 'includes/header.php'; ?>
+<?php include_once'includes/header.php'; ?>
 <main>
     <h1 class="about-us">About Us</h1>
     <h2><b>Welcome</b> to <span>ys</span> </h2>

@@ -1,7 +1,4 @@
-
-
-
-<?php include 'includes/header.php'; ?>
+<?php include_once'includes/header.php'; ?>
 <main>
     <h1>Contact Us</h1>
     <div class="contact-box">
@@ -16,7 +13,7 @@
                 <h2>Send a Message!!!</h2>
                 <label for="name">Name:</label>
                 <input type="text" id="name" name="name" required>
-                
+                                
                 <label for="email">Email:</label>
                 <input type="email" id="email" name="email" required>
                 
